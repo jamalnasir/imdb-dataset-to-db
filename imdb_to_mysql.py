@@ -24,6 +24,7 @@ import argparse
 import csv
 import gzip
 import os
+import sys
 from pathlib import Path
 from typing import Dict, Iterable, Iterator, List, Optional, Sequence, Tuple
 
@@ -32,6 +33,18 @@ from mysql.connector.connection import MySQLConnection
 
 NULL_VALUE = r"\N"
 BATCH_SIZE = 5000
+
+# Some IMDb TSV fields (notably in title.akas.tsv) exceed the csv module's
+# default field size limit of 131072 bytes. Raise the limit to the largest
+# value accepted on this platform. We can't just use sys.maxsize because on
+# Windows it overflows the underlying C long, so we halve until it sticks.
+_max_int = sys.maxsize
+while True:
+    try:
+        csv.field_size_limit(_max_int)
+        break
+    except OverflowError:
+        _max_int = int(_max_int / 10)
 
 
 def clean(value: Optional[str]) -> Optional[str]:
