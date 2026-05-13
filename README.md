@@ -1,8 +1,10 @@
 # imdb-dataset-to-db
 
-Tools for importing public datasets into normalized relational databases. This repository currently focuses on loading the official IMDb TSV datasets into a MySQL database using a single Python script.
+Tools for importing public datasets into normalized relational databases.
 
-Last updated: 2026-05-12 16:16
+This repository currently focuses on loading the official IMDb TSV datasets into a MySQL database using a single Python script. It is designed for developers, students, PhD researchers, and database researchers who need a real-world relational dataset for database experiments, query analysis, indexing tests, and performance evaluation.
+
+For researchers who typically use benchmark datasets such as TPC-H, this repository provides a practical alternative based on real IMDb data. The generated schema supports common relational database operations such as joins, filters, aggregations, foreign-key relationships, and indexed lookups.
 
 ## What this does
 - Creates a normalized MySQL schema for IMDb data (titles, people, ratings, akas, crew, episodes, principals, and helper tables for genres/professions/known-for).
